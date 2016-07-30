@@ -29,8 +29,8 @@ public class SlackServiceImpl implements SlackService {
 
 	private String address = "https://slack.com/api/chat.postMessage";
 	private String team = "codenote";
-	private String username = "tomeraz";
-	private String token = "xoxp-60495774180-60506110549-61082351462-f2ccee22aa";
+	private String username = "pniel";
+	private String token = "xoxp-60495774180-60591676103-61087242022-7d52d19552";
 	private String channel = "test";
 
 	private static final Logger logger = LoggerFactory.getLogger(SlackServiceImpl.class);
