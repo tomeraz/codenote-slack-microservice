@@ -5,9 +5,13 @@ package com.tikal.codenote.services.impl;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,21 +23,36 @@ import org.springframework.web.client.RestTemplate;
 import com.google.gson.Gson;
 import com.tikal.codenote.model.SlackMessage;
 import com.tikal.codenote.services.SlackService;
+import com.tikal.codenote.services.security.Security;
 
 /**
  * @author Pniel
  *
  */
 @Service
+@EnableConfigurationProperties
 public class SlackServiceImpl implements SlackService {
 
-	private String address = "https://slack.com/api/chat.postMessage";
-	private String team = "codenote";
-	private String username = "pniel";
-	private String token = "xoxp-60495774180-60591676103-61087242022-7d52d19552";
-	private String channel = "test";
-
 	private static final Logger logger = LoggerFactory.getLogger(SlackServiceImpl.class);
+
+	@Autowired
+	private Security Service;
+
+	@Value("${slackServiceImpl.address}")
+	private String address;
+	@Value("${slackServiceImpl.team}")
+	private String team;
+	@Value("${slackServiceImpl.username}")
+	private String username;
+	@Value("${slackServiceImpl.token}")
+	private String token;
+	@Value("${slackServiceImpl.channel}")
+	private String channel;
+
+	@PostConstruct
+	public void init() {
+		token = Service.decrypt(token);
+	}
 
 	@Autowired
 	private Gson gson;
