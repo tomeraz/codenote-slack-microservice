@@ -40,4 +40,10 @@ public class SlackController {
 	public List<String> getMessages() {
 		return slackService.getMessages();
 	}
+
+	@RequestMapping(value = "/deploymenyTest", method = RequestMethod.GET, produces = "application/json")
+	public String deploymenyTest() {
+		return "SUCCESS";
+	}
+
 }
